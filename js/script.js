@@ -1,3 +1,6 @@
+const assignButton = document.querySelector(".assign");
+
+const assignedItems = document.querySelector(".assigned-items");
 // invite button
 const addGuestButton = document.querySelector(".invite");
 // label for the invite button
@@ -42,3 +45,37 @@ const updateGuestCount = function(){
         guestFull.classList.remove("hide");
     }
 };
+
+const assignItems = function(){
+    const potluckItems = [
+        "Halloumi and Melon Skewers",
+        "Peach and Prosciutto Bruschetta",
+        "Veggie Nori Rolls",
+        "Tomato & Mozzarella Caprese Skewers",
+        "Stuffed peppadews with Parmesan & Salami",
+        "3-Cheese Tomato Tart",
+        "Zucchini Noddles with Tomatoes and Corn",
+        "Sandwich for a Crowd",
+        "3-Bean Israeli Couscous Salad",
+        "Chilled Cucumber Noodles with Sesame Dressing",
+         "Lemon Cream Icebox Cake",
+         "Pesto Pasta Salad"];
+
+    const allGuests = document.querySelectorAll(".guest-list li");
+
+    for (let guest of allGuests){
+        let randomPotluckIndex = Math.floor(Math.random() * potluckItems.length); 
+        let randomPotluckItem = potluckItems[randomPotluckIndex];
+
+        let listItem = document.createElement("li");
+        listItem.innerText = `${guest.innerText} is bringing ${randomPotluckItem}.`;
+    
+        assignedItems.append(listItem);
+        potluckItems.splice(randomPotluckIndex, 1);
+    }
+};
+
+assignButton.addEventListener("click", function(){
+    assignItems();
+    assignButton.disabled = true;
+});
